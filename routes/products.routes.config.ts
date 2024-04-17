@@ -11,6 +11,16 @@ export class productsRoutes extends CommonRoutesConfig {
         super(app, 'ProductsRoutes');
     }
      configureRoutes() {
+        this.app.route(`/products/filtered`)
+        .post( async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+            let params = {}
+            if(req.body){
+               params = {where: req.body}
+            }
+            let response =  await  this.prod.getAll(params) 
+            res.status(200).json(response);     
+        })
+
         this.app.route(`/products`)
         .all((req: express.Request, res: express.Response, next: express.NextFunction) => {
             // this middleware function runs before any request to /category

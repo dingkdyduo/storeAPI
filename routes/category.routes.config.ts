@@ -12,6 +12,17 @@ export class CategoryRoutes extends CommonRoutesConfig {
         super(app, 'CategoryRoutes');
     }
      configureRoutes() {
+        this.app.route(`/category/filtered`)
+        .post(async (req: express.Request, res: express.Response) => {
+            //get filtered category
+            let params = {}
+            if(req.body){
+               params = {where: req.body}
+            }
+            let response =  await  this.categ.getAll(params) 
+            res.status(200).json(response);     
+         })
+
         this.app.route(`/category`)
         .all((req: express.Request, res: express.Response, next: express.NextFunction) => {
             // this middleware function runs before any request to /category
@@ -20,10 +31,6 @@ export class CategoryRoutes extends CommonRoutesConfig {
         })
         .get(async (req: express.Request, res: express.Response) => {
          //get all category
-         let params = {}
-         if(req.body){
-            params = {where: req.body}
-         }
          let response =  await  this.categ.getAll() 
          res.status(200).json(response);     
    
