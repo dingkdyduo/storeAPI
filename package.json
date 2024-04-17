@@ -8,13 +8,13 @@
     "express-winston": "^4.2.0",
     "mongodb": "^6.5.0",
     "pg": "^8.11.5",
-    "sequelize-typescript": "^2.1.6",
+    "sequelize": "6.37.3",
     "ts-node": "^10.9.2",
     "ts-postgres": "^2.0.2",
     "winston": "^3.13.0"
   },
   "scripts": {
-    "start": "tsc && node --unhandled-rejections=strict ./dist/app.js",
+    "start": "node -v && tsc && node --unhandled-rejections=strict ./dist/app.js",
     "debug": "export DEBUG=* && npm run start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
