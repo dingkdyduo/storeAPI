@@ -37,7 +37,9 @@ export class UsersRoutes extends CommonRoutesConfig {
        this.app.route(`/users/:id`)
         .all((req: express.Request, res: express.Response, next: express.NextFunction) => {
             // this middleware function runs before any request to /category/:userId
-            next();
+            
+                next();
+           
         })
         .get(async(req: express.Request, res: express.Response) => {
             let response =  await  this.users.getOne(Number(req.params.id)) 
@@ -54,9 +56,18 @@ export class UsersRoutes extends CommonRoutesConfig {
             let message=response>0 ? `${response} record updated`:`no record for ID: ${req.params.id} `
             res.status(200).json({message:message}); 
 
-        });
+        })
 
-         
+        .post(async (req: express.Request, res: express.Response) => {
+            //get filtered category
+            let params = {}
+            if(req.body){
+               params =  {where: req.body}
+            }
+            let response =  await  this.users.getAll(params) 
+            res.status(200).json(response);     
+         })
+ 
         return this.app;
     }
 }
